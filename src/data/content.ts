@@ -27,12 +27,12 @@ export const partnershipsData = {
   title: "Our Proven Partnerships",
   subtext: "Successful Collaborations With the Industry's Best",
   clients: [
-    { name: "Reliance", logo: "/logos/relience_industry_limited.png", alt: "Reliance Industries" },
-    { name: "HCL", logo: "/logos/HCL.png", alt: "HCL Technologies" },
-    { name: "IBM", logo: "/logos/IBM.png", alt: "IBM" },
-    { name: "CRIF", logo: "/logos/CRIF.png", alt: "CRIF" },
-    { name: "ADP", logo: "/logos/ADP.png", alt: "ADP" },
-    { name: "Bayer", logo: "/logos/BAYER.png", alt: "Bayer" },
+    { name: "Reliance", logo: "/relience.png", alt: "Reliance Industries" },
+    { name: "HCL", logo: "/hcl.png", alt: "HCL Technologies" },
+    { name: "IBM", logo: "/ibm.png", alt: "IBM" },
+    { name: "CRIF", logo: "/crif.png", alt: "CRIF" },
+    { name: "ADP", logo: "/adp.png", alt: "ADP" },
+    { name: "Bayer", logo: "/bayer.png", alt: "Bayer" },
   ],
 };
 

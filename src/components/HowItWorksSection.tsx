@@ -21,7 +21,7 @@ export default function HowItWorksSection() {
         {/* Image */}
         <div className="relative w-full max-w-5xl mx-auto">
           <Image
-            src="/The_CAT_framework.svg"
+            src="/The_CAT_framework.png"
             alt="The CAT Framework - Our Proven Approach to Learning Excellence"
             width={1933}
             height={610}

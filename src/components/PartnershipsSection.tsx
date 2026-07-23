@@ -47,7 +47,7 @@ export default function PartnershipsSection() {
             <div className="relative w-full">
               <div className="relative aspect-[4/3] w-full">
                 <Image
-                  src="/The%20Accredian%20Edge.png"
+                  src="/accredian-edge-usp-v3.png"
                   alt="The Accredian Edge - Key Aspects of Our Strategic Training"
                   fill
                   className="object-contain rounded-xl"

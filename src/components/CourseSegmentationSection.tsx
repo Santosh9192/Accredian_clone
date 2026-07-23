@@ -2,7 +2,7 @@ import Image from "next/image";
 
 const segmentationCards = [
   {
-    src: "/Program_specific.png",
+    src: "/program_specific.png",
     alt: "Program Specific - Certificate, Executive, Post Graduate Certificate",
     title: "Program Specific",
     items: ["Certificate", "Executive", "Post Graduate Certificate"],
@@ -20,7 +20,7 @@ const segmentationCards = [
     items: ["Machine Learning", "Design", "Analytics", "Cybersecurity", "Cloud"],
   },
   {
-    src: "/Level_specific.png",
+    src: "/level_specific.png",
     alt: "Level Specific - Senior Leadership, Mid-Career Professionals, Freshers",
     title: "Level Specific",
     items: ["Senior Leadership", "Mid-Career Professionals", "Freshers"],

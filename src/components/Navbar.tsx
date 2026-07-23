@@ -2,11 +2,9 @@
 
 import { useState } from "react";
 import { navLinks } from "@/data/content";
-import LeadCaptureModal from "./LeadCaptureModal";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <>
@@ -42,15 +40,7 @@ export default function Navbar() {
               ))}
             </ul>
 
-            {/* Desktop CTA - bg=#1a73e8, color=white, borderRadius=8px, padding=12px 24px, fontSize=16px, fontWeight=600 */}
-            <div className="hidden lg:flex items-center gap-3">
-              <button
-                onClick={() => setModalOpen(true)}
-                className="bg-[#1a73e8] text-white px-6 py-3 rounded-lg text-base font-semibold hover:bg-[#1557b0] transition-all shadow-md hover:shadow-lg active:scale-95"
-              >
-                Enquire Now
-              </button>
-            </div>
+
 
             {/* Mobile Hamburger */}
             <button
@@ -80,18 +70,10 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
-            <hr className="border-gray-100 my-3" />
-            <button
-              onClick={() => { setMobileOpen(false); setModalOpen(true); }}
-              className="w-full bg-[#1a73e8] text-white py-3 rounded-lg text-base font-semibold hover:bg-[#1557b0] transition-all shadow-md"
-            >
-              Enquire Now
-            </button>
+
           </div>
         </div>
       </header>
-
-      <LeadCaptureModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
     </>
   );
 }

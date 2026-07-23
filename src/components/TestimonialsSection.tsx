@@ -10,13 +10,13 @@ export default function TestimonialsSection() {
     <section id="testimonials" className="relative py-16 sm:py-20 bg-gray-50/50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-100 rounded-full mb-4">
-            <span className="text-sm font-medium text-[#1a73e8]">Testimonials from Our Partners</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#11101d] mb-4">
-            What Our{" "}
-            <span className="text-[#1a73e8]">Clients Are Saying</span>
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#11101d] mb-3">
+            Testimonials from{" "}
+            <span className="text-[#1a73e8]">Our Partners</span>
           </h2>
+          <p className="text-gray-500 text-base">
+            What Our Clients Are Saying
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">

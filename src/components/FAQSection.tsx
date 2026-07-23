@@ -10,13 +10,14 @@ function AccordionItem({ question, answer, isOpen, onClick }: {
   onClick: () => void;
 }) {
   return (
-    <div className="border border-gray-200 rounded-xl overflow-hidden hover:border-blue-100 transition-colors">        <button
-          onClick={onClick}
-          aria-expanded={isOpen}
-          className="w-full flex items-center justify-between px-5 py-4 text-left bg-white hover:bg-gray-50/50 transition-colors"
-        >
-          <span className="text-sm font-medium text-gray-800 pr-4">{question}</span>
-          <svg
+    <div className="border border-gray-200 rounded-xl overflow-hidden hover:border-blue-100 transition-colors">
+      <button
+        onClick={onClick}
+        aria-expanded={isOpen}
+        className="w-full flex items-center justify-between px-5 py-4 text-left bg-white hover:bg-gray-50/50 transition-colors"
+      >
+        <span className="text-sm font-medium text-gray-800 pr-4">{question}</span>
+        <svg
           className={`w-5 h-5 text-gray-400 flex-shrink-0 transition-transform duration-300 ${isOpen ? "rotate-180" : ""}`}
           fill="none" stroke="currentColor" viewBox="0 0 24 24"
         >
@@ -43,47 +44,47 @@ export default function FAQSection() {
   return (
     <section id="faqs" className="relative py-16 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-100 rounded-full mb-4">
-            <span className="text-sm font-medium text-[#1a73e8]">FAQs</span>
+        <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
+          {/* Left Side: Heading + Category Buttons */}
+          <div className="w-full lg:w-72 xl:w-80 flex-shrink-0">
+            <h2 className="text-3xl sm:text-4xl font-bold text-[#11101d] mb-3">
+              Frequently Asked{" "}
+              <span className="text-[#1a73e8]">Questions</span>
+            </h2>
+            <p className="text-gray-500 text-base mb-8">
+              Everything you need to know about Accredian Enterprise.
+            </p>
+
+            {/* Category buttons - vertical */}
+            <div className="flex flex-col gap-2">
+              {faqData.map((cat, index) => (
+                <button
+                  key={cat.category}
+                  onClick={() => { setActiveCategory(index); setOpenItems([]); }}
+                  className={`w-full text-left px-5 py-3 rounded-xl text-sm font-medium transition-all ${
+                    activeCategory === index
+                      ? "bg-[#1a73e8] text-white shadow-md"
+                      : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                  }`}
+                >
+                  {cat.category}
+                </button>
+              ))}
+            </div>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#11101d] mb-4">
-            Frequently Asked{" "}
-            <span className="text-[#1a73e8]">Questions</span>
-          </h2>
-          <p className="text-gray-500 text-base">
-            Everything you need to know about Accredian Enterprise.
-          </p>
-        </div>
 
-        {/* Category tabs */}
-        <div className="flex flex-wrap justify-center gap-3 mb-8">
-          {faqData.map((cat, index) => (
-            <button
-              key={cat.category}
-              onClick={() => { setActiveCategory(index); setOpenItems([]); }}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
-                activeCategory === index
-                  ? "bg-[#007aff] text-white shadow-md"
-                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-              }`}
-            >
-              {cat.category}
-            </button>
-          ))}
-        </div>
-
-        {/* FAQ Items */}
-        <div className="max-w-3xl mx-auto space-y-3">
-          {faqData[activeCategory].items.map((item, idx) => (
-            <AccordionItem
-              key={idx}
-              question={item.question}
-              answer={item.answer}
-              isOpen={openItems.includes(idx)}
-              onClick={() => toggleItem(idx)}
-            />
-          ))}
+          {/* Right Side: FAQ Items */}
+          <div className="flex-1 space-y-3">
+            {faqData[activeCategory].items.map((item, idx) => (
+              <AccordionItem
+                key={idx}
+                question={item.question}
+                answer={item.answer}
+                isOpen={openItems.includes(idx)}
+                onClick={() => toggleItem(idx)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

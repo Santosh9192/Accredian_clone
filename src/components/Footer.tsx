@@ -1,5 +1,13 @@
 import { footerContent } from "@/data/content";
 
+const socialLinks = [
+  { icon: "in", label: "LinkedIn", href: "https://www.linkedin.com/company/accredianedu/" },
+  { icon: "𝕏", label: "Twitter", href: "https://twitter.com/accredianedu" },
+  { icon: "▶", label: "YouTube", href: "https://www.youtube.com/channel/UCE0L_4ADPU2iyKnDJ0xRzyA" },
+  { icon: "📷", label: "Instagram", href: "https://www.instagram.com/accredian_edu" },
+  { icon: "f", label: "Facebook", href: "https://facebook.com/accredianlearn" },
+];
+
 export default function Footer() {
   return (
     <footer className="bg-[#11101d] text-gray-400">
@@ -43,13 +51,21 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Social placeholder */}
+          {/* Follow Us */}
           <div>
             <h3 className="text-white font-semibold text-sm mb-4">Follow Us</h3>
-            <div className="flex gap-3">
-              {["in", "𝕏", "▶"].map((icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-lg flex items-center justify-center text-sm text-gray-400 hover:text-white transition-all">
-                  {icon}
+            <div className="flex flex-wrap gap-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title={social.label}
+                  aria-label={social.label}
+                  className="w-10 h-10 bg-gray-800 hover:bg-blue-600 rounded-lg flex items-center justify-center text-sm text-gray-400 hover:text-white transition-all"
+                >
+                  {social.icon}
                 </a>
               ))}
             </div>

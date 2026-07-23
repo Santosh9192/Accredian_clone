@@ -3,14 +3,25 @@
 import { domainExpertiseData } from "@/data/content";
 import { useRef, useEffect, useState } from "react";
 
-function DomainCard({ title, description, skills, index }: {
+const domainColors = [
+  { accent: "from-blue-500 to-cyan-400" },
+  { accent: "from-purple-500 to-pink-400" },
+  { accent: "from-emerald-500 to-teal-400" },
+  { accent: "from-orange-500 to-amber-400" },
+  { accent: "from-rose-500 to-red-400" },
+  { accent: "from-indigo-500 to-violet-400" },
+  { accent: "from-cyan-500 to-sky-400" },
+];
+
+function DomainCard({ id, title, index }: {
+  id: number;
   title: string;
-  description: string;
-  skills: string[];
   index: number;
 }) {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
+  const color = domainColors[index % domainColors.length];
+  const isLast = index === domainExpertiseData.length - 1;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -24,19 +35,26 @@ function DomainCard({ title, description, skills, index }: {
   return (
     <div
       ref={ref}
-      className={`group bg-white border border-gray-200 rounded-xl p-6 hover:shadow-lg hover:border-blue-100 transition-all duration-500 ${
+      className={`group relative bg-white rounded-xl border border-gray-200 p-4 hover:shadow-lg hover:border-blue-100 transition-all duration-500 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      } ${
+        isLast ? "sm:col-span-2 lg:col-span-1 lg:col-start-2" : ""
       }`}
-      style={{ transitionDelay: `${index * 100}ms` }}
+      style={{ transitionDelay: `${index * 80}ms` }}
     >
-      <h3 className="text-lg font-bold text-[#11101d] mb-2 group-hover:text-[#1a73e8] transition-colors">{title}</h3>
-      <p className="text-gray-500 text-sm leading-relaxed mb-4">{description}</p>
-      <div className="flex flex-wrap gap-2">
-        {skills.map((skill) => (
-          <span key={skill} className="px-2.5 py-1 bg-gray-50 text-gray-600 text-xs rounded-md border border-gray-100">
-            {skill}
-          </span>
-        ))}
+      {/* Left accent bar */}
+      <div className={`absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b ${color.accent} rounded-l-xl`} />
+
+      <div className="flex items-center gap-3">
+        {/* Number badge */}
+        <div className={`flex-shrink-0 inline-flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br ${color.accent} text-white text-xs font-bold`}>
+          {id}
+        </div>
+
+        {/* Title only */}
+        <h3 className="text-sm font-bold text-[#11101d] transition-colors">
+          {title}
+        </h3>
       </div>
     </div>
   );
@@ -44,24 +62,21 @@ function DomainCard({ title, description, skills, index }: {
 
 export default function DomainExpertiseSection() {
   return (
-    <section id="clients" className="relative py-16 sm:py-20 bg-gray-50/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-50 border border-blue-100 rounded-full mb-4">
-            <span className="text-sm font-medium text-[#1a73e8]">Domain Expertise</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-bold text-[#11101d] mb-4">
+    <section className="relative py-14 sm:py-16 bg-white">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center max-w-2xl mx-auto mb-10">
+<h2 className="text-3xl sm:text-4xl font-bold text-[#11101d] mb-3">
             Our Domain{" "}
             <span className="text-[#1a73e8]">Expertise</span>
           </h2>
-          <p className="text-gray-500 text-base">
-            Specialized Programs Designed to Fuel Innovation
+          <p className="text-gray-500 text-sm">
+            <span className="text-[#1a73e8]">Specialized Programs</span> Designed to Fuel Innovation
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {domainExpertiseData.map((domain, index) => (
-            <DomainCard key={domain.id} {...domain} index={index} />
+            <DomainCard key={domain.id} id={domain.id} title={domain.title} index={index} />
           ))}
         </div>
       </div>

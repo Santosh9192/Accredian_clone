@@ -2,14 +2,30 @@
 
 import { closingCtaContent } from "@/data/content";
 import LeadCaptureModal from "./LeadCaptureModal";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 export default function ClosingCtaSection() {
   const [modalOpen, setModalOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
+      { threshold: 0.2 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
-      <section className="relative py-10 sm:py-14 overflow-hidden bg-dark-gradient">
+      <section
+        ref={ref}
+        className={`relative py-10 sm:py-14 overflow-hidden bg-dark-gradient transition-all duration-700 ${
+          isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+        }`}
+      >
         <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-cyan-500/5" />
         <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgb(255 255 255) 1px, transparent 0)", backgroundSize: "40px 40px" }} />
 

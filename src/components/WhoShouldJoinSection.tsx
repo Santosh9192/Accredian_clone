@@ -101,7 +101,7 @@ export default function WhoShouldJoinSection() {
                     fill
                     className="object-contain"
                     sizes="(max-width: 1024px) 50vw, 380px"
-                    priority
+                    loading="lazy"
                   />
                 </div>
               </div>

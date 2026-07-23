@@ -2,6 +2,41 @@
 
 import { partnershipsData } from "@/data/content";
 import Image from "next/image";
+import { useRef, useEffect, useState } from "react";
+
+function ClientLogoCard({ client, index }: { client: { name: string; logo: string; alt: string }; index: number }) {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
+      { threshold: 0.2 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={ref}
+      className={`flex items-center justify-center p-4 sm:p-6 bg-white rounded-xl border border-gray-200 hover:shadow-md hover:border-blue-100 transition-all duration-500 group ${
+        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+      }`}
+      style={{ transitionDelay: `${index * 80}ms` }}
+    >
+      <div className="relative w-full h-12 sm:h-14 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
+        <Image
+          src={client.logo}
+          alt={client.alt}
+          fill
+          className="object-contain"
+          sizes="(max-width: 640px) 40vw, (max-width: 1024px) 30vw, 15vw"
+        />
+      </div>
+    </div>
+  );
+}
 
 export default function PartnershipsSection() {
   return (
@@ -16,21 +51,8 @@ export default function PartnershipsSection() {
 
         {/* Real Client Logos Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 mb-14">
-          {partnershipsData.clients?.map((client) => (
-            <div
-              key={client.name}
-              className="flex items-center justify-center p-4 sm:p-6 bg-white rounded-xl border border-gray-200 hover:shadow-md hover:border-blue-100 transition-all group"
-            >
-              <div className="relative w-full h-12 sm:h-14 grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300">
-                <Image
-                  src={client.logo}
-                  alt={client.alt}
-                  fill
-                  className="object-contain"
-                  sizes="(max-width: 640px) 40vw, (max-width: 1024px) 30vw, 15vw"
-                />
-              </div>
-            </div>
+          {partnershipsData.clients?.map((client, index) => (
+            <ClientLogoCard key={client.name} client={client} index={index} />
           ))}
         </div>
 
@@ -52,7 +74,7 @@ export default function PartnershipsSection() {
                   fill
                   className="object-contain rounded-xl"
                   sizes="(max-width: 1280px) 100vw, 1200px"
-                  priority
+                  loading="lazy"
                 />
               </div>
             </div>

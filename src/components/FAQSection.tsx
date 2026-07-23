@@ -1,7 +1,7 @@
 "use client";
 
 import { faqData } from "@/data/content";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 function AccordionItem({ question, answer, isOpen, onClick }: {
   question: string;
@@ -34,6 +34,28 @@ function AccordionItem({ question, answer, isOpen, onClick }: {
 export default function FAQSection() {
   const [activeCategory, setActiveCategory] = useState(0);
   const [openItems, setOpenItems] = useState<number[]>([]);
+  const [leftVisible, setLeftVisible] = useState(false);
+  const [rightVisible, setRightVisible] = useState(false);
+  const leftRef = useRef<HTMLDivElement>(null);
+  const rightRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setLeftVisible(true); observer.disconnect(); } },
+      { threshold: 0.2 }
+    );
+    if (leftRef.current) observer.observe(leftRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setRightVisible(true); observer.disconnect(); } },
+      { threshold: 0.1 }
+    );
+    if (rightRef.current) observer.observe(rightRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   const toggleItem = (index: number) => {
     setOpenItems((prev) =>
@@ -46,7 +68,12 @@ export default function FAQSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-16">
           {/* Left Side: Heading + Category Buttons */}
-          <div className="w-full lg:w-72 xl:w-80 flex-shrink-0">
+          <div
+            ref={leftRef}
+            className={`w-full lg:w-72 xl:w-80 flex-shrink-0 transition-all duration-700 ${
+              leftVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-8"
+            }`}
+          >
             <h2 className="text-3xl sm:text-4xl font-bold text-[#11101d] mb-3">
               Frequently Asked{" "}
               <span className="text-[#1a73e8]">Questions</span>
@@ -74,7 +101,12 @@ export default function FAQSection() {
           </div>
 
           {/* Right Side: FAQ Items */}
-          <div className="flex-1 space-y-3">
+          <div
+            ref={rightRef}
+            className={`flex-1 space-y-3 transition-all duration-700 ${
+              rightVisible ? "opacity-100 translate-x-0" : "opacity-0 translate-x-8"
+            }`}
+          >
             {faqData[activeCategory].items.map((item, idx) => (
               <AccordionItem
                 key={idx}
